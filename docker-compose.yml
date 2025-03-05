@@ -1,0 +1,32 @@
+version: '3.9'
+services:  
+  webnode:
+    ports:   
+      - "8080:8080"
+      - "4200:4200"
+    volumes:
+      - ./:/app
+    build: ./dockerfiles/node/ 
+    networks:
+      - minha-rede
+
+  db:
+    image: mysql:5.7
+    environment:
+      MYSQL_ROOT_PASSWORD: "Senha123"
+      MYSQL_DATABASE: "testenode"
+    ports:
+      - "3306:3306"
+    volumes:
+      - dio_docker_mysql:/var/lib/mysql
+    networks:
+      - minha-rede
+    restart: always
+
+networks:
+   minha-rede:
+     driver: bridge
+
+volumes:
+   dio_docker_mysql:
+
